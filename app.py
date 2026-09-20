@@ -474,16 +474,87 @@ if mode == "Recomendado pela base":
         "clientes cancelados de ativos nesta base histórica. Isso é evidência exploratória, não causalidade.",
     )
 else:
-    optional_caption("A soma é normalizada automaticamente para 100%.", detailed_view)
-    if st.button("Restaurar pesos recomendados", icon=":material/restart_alt:"):
-        for item in evidence:
-            st.session_state[f"custom-{item.module_id}"] = int(round(item.recommended_weight))
-        st.rerun()
+    initial_weights = {item.module_id: int(round(item.recommended_weight)) for item in evidence}
+    diff_init = 100 - sum(initial_weights.values())
+    if diff_init != 0:
+        initial_weights[evidence[0].module_id] += diff_init
+
+    if "prev_weights" not in st.session_state:
+        st.session_state.prev_weights = dict(initial_weights)
+
+    for item in evidence:
+        if f"custom-{item.module_id}" not in st.session_state:
+            st.session_state[f"custom-{item.module_id}"] = st.session_state.prev_weights.get(item.module_id, initial_weights[item.module_id])
+
+    def on_weight_slider_change(changed_id: str) -> None:
+        new_val = st.session_state[f"custom-{changed_id}"]
+        current = {item.module_id: st.session_state.prev_weights.get(item.module_id, int(round(item.recommended_weight))) for item in evidence}
+        old_val = current[changed_id]
+        delta = new_val - old_val
+        if delta == 0:
+            return
+
+        other_ids = [item.module_id for item in evidence if item.module_id != changed_id]
+        other_sum = sum(current[k] for k in other_ids)
+
+        result = dict(current)
+        result[changed_id] = new_val
+
+        if other_sum > 0:
+            for k in other_ids:
+                ratio = current[k] / other_sum
+                result[k] = max(0, round(current[k] - delta * ratio))
+        else:
+            remaining = 100 - new_val
+            equal_share = remaining / len(other_ids) if other_ids else 0
+            for k in other_ids:
+                result[k] = max(0, round(equal_share))
+
+        total = sum(result.values())
+        discrepancy = 100 - total
+        if discrepancy != 0:
+            eligible = [k for k in other_ids if result[k] + discrepancy >= 0]
+            if eligible:
+                target = max(eligible, key=lambda k: result[k])
+                result[target] += discrepancy
+            else:
+                result[changed_id] += discrepancy
+
+        for k, v in result.items():
+            st.session_state[f"custom-{k}"] = int(v)
+            st.session_state.prev_weights[k] = int(v)
+
+    btn_col, info_col = st.columns([1.6, 3.4], vertical_alignment="center")
+    with btn_col:
+        if st.button("Restaurar pesos recomendados", icon=":material/restart_alt:"):
+            for item in evidence:
+                st.session_state[f"custom-{item.module_id}"] = initial_weights[item.module_id]
+                st.session_state.prev_weights[item.module_id] = initial_weights[item.module_id]
+            st.rerun()
+    with info_col:
+        st.markdown(
+            '<div style="font-size: 0.85rem; font-weight: 700; color: #157a55;">'
+            '✓ Pesos proporcionais ativos · A soma dos 6 fatores é sempre exatamente 100%</div>',
+            unsafe_allow_html=True,
+        )
+
     cols = st.columns(6)
     chosen = {}
     for column, item in zip(cols, evidence):
         with column:
-            chosen[item.module_id] = st.slider(item.module_name, 0, 50, int(round(item.recommended_weight)), 1, key=f"custom-{item.module_id}")
+            current_val = st.session_state.get(f"custom-{item.module_id}", initial_weights[item.module_id])
+            chosen[item.module_id] = st.slider(
+                f"{item.module_name} ({current_val}%)",
+                min_value=0,
+                max_value=100,
+                value=current_val,
+                step=1,
+                key=f"custom-{item.module_id}",
+                on_change=on_weight_slider_change,
+                args=(item.module_id,),
+            )
+            st.session_state.prev_weights[item.module_id] = chosen[item.module_id]
+
     largest_change = max(evidence, key=lambda item: abs(chosen[item.module_id] - round(item.recommended_weight)))
     delta = chosen[largest_change.module_id] - round(largest_change.recommended_weight)
     if delta == 0:
@@ -493,7 +564,7 @@ else:
         manager_story = f"o gestor {direction} a importância de {largest_change.module_name} em {abs(delta):.0f} pontos frente à recomendação arredondada."
     detail_badge(
         "Ver impacto do ajuste",
-        f"**Leitura do Retain:** {manager_story} A fila e a previsão foram recalculadas.",
+        f"**Leitura do Retain:** {manager_story} A fila e a previsão foram recalculadas mantendo a soma em 100%.",
     )
 
 settings = {module_id: {"active": weight > 0, "weight": weight} for module_id, weight in chosen.items()}

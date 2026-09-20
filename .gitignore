@@ -38,4 +38,5 @@ ENV/
 
 # Temporary & artifacts
 tmp/
+scratch/
 :memory:.ses
