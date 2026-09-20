@@ -24,16 +24,32 @@ A documentação está dividida em:
 - [`docs/UX_NIELSEN.md`](docs/UX_NIELSEN.md): decisões de usabilidade e aplicação das heurísticas de Nielsen;
 - [`docs/TECH_STACK.md`](docs/TECH_STACK.md): tecnologias, bibliotecas, arquitetura e instruções de deploy.
 
-## Execução
+## Como Acessar e Executar
+
+### 1. Acesso Online (Sem instalação)
+
+Você pode acessar e usar o sistema diretamente no navegador:
+👉 **[https://retainbybolt.streamlit.app](https://retainbybolt.streamlit.app)**
+
+---
+
+### 2. Execução Local (Para desenvolvedores)
+
+Para rodar o projeto localmente no seu computador:
 
 ```bash
+# 1. Crie e ative o ambiente virtual
 python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install -r requirements.txt
+
+# 2. Instale as dependências
+pip install -r requirements.txt
+
+# 3. Inicie o aplicativo
 streamlit run app.py
 ```
 
-Abra `http://127.0.0.1:8501`.
+Abra no navegador em `http://localhost:8501`.
 
 ## Testes
 
