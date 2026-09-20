@@ -524,19 +524,11 @@ else:
             st.session_state[f"custom-{k}"] = int(v)
             st.session_state.prev_weights[k] = int(v)
 
-    btn_col, info_col = st.columns([1.6, 3.4], vertical_alignment="center")
-    with btn_col:
-        if st.button("Restaurar pesos recomendados", icon=":material/restart_alt:"):
-            for item in evidence:
-                st.session_state[f"custom-{item.module_id}"] = initial_weights[item.module_id]
-                st.session_state.prev_weights[item.module_id] = initial_weights[item.module_id]
-            st.rerun()
-    with info_col:
-        st.markdown(
-            '<div style="font-size: 0.85rem; font-weight: 700; color: #157a55;">'
-            '✓ Pesos proporcionais ativos · A soma dos 6 fatores é sempre exatamente 100%</div>',
-            unsafe_allow_html=True,
-        )
+    if st.button("Restaurar pesos recomendados", icon=":material/restart_alt:"):
+        for item in evidence:
+            st.session_state[f"custom-{item.module_id}"] = initial_weights[item.module_id]
+            st.session_state.prev_weights[item.module_id] = initial_weights[item.module_id]
+        st.rerun()
 
     cols = st.columns(6)
     chosen = {}
