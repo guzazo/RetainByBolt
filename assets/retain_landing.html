@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="pt-BR" style="overflow-x: clip !important; overflow-y: visible !important;"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Retain — Antecipe riscos, priorize clientes, proteja receita</title>
+<!-- Tailwind Play CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Instrument Serif', 'Georgia', 'serif'],
+          },
+          colors: {
+            appbg: '#F6F8FC',
+            navy: '#14213D',
+            navyDark: '#0B132B',
+            brand: '#2457D6',
+            brandHover: '#1D46B0',
+            brandLight: '#EEF3FF',
+            emeraldAccent: '#10B981',
+            riskHigh: '#DC2626',
+            riskMid: '#EA580C',
+            riskLow: '#16A34A',
+          },
+          boxShadow: {
+            'subtle': '0 20px 40px -15px rgba(20, 33, 61, 0.07)',
+            'pill': '0 12px 32px -4px rgba(36, 87, 214, 0.15)',
+            'glow': '0 0 50px -10px rgba(36, 87, 214, 0.25)',
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    html, body {
+      overflow-x: clip !important;
+      overflow-y: visible !important;
+    }
+    body {
+      background-color: #F6F8FC;
+      color: #14213D;
+      font-family: 'Inter', sans-serif;
+      selection-background-color: #2457D6;
+      selection-color: #ffffff;
+    }
+    ::selection {
+      background: #2457D6;
+      color: #ffffff;
+    }
+    
+    /* Mesh Gradients */
+    .hero-mesh {
+      background: 
+        radial-gradient(at 15% 20%, rgba(36, 87, 214, 0.12) 0px, transparent 55%),
+        radial-gradient(at 85% 15%, rgba(16, 185, 129, 0.08) 0px, transparent 50%),
+        radial-gradient(at 50% 80%, rgba(36, 87, 214, 0.06) 0px, transparent 65%),
+        #F6F8FC;
+    }
+
+    .dark-mesh {
+      background: 
+        radial-gradient(at 20% 30%, rgba(36, 87, 214, 0.22) 0px, transparent 55%),
+        radial-gradient(at 80% 70%, rgba(16, 185, 129, 0.12) 0px, transparent 55%),
+        #14213D;
+    }
+
+    /* Custom scrollbar discreta */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F6F8FC;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #2457D6;
+    }
+
+    /* Requisitos Estritos da Seção Jornada de Decisão */
+    .journey-pin-wrapper {
+      position: relative;
+      height: 300vh;
+      width: 100%;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      overflow: visible !important;
+    }
+
+    .journey-stage {
+      position: sticky !important;
+      top: 0 !important;
+      height: 100vh !important;
+      width: 100%;
+      overflow: hidden !important;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start !important;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+
+    .journey-track {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      will-change: transform;
+      box-sizing: border-box;
+      height: 100%;
+      align-items: center;
+      align-self: flex-start !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      left: 0 !important;
+      justify-content: flex-start !important;
+    }
+
+    .journey-slide {
+      flex: 0 0 100vw;
+      width: 100vw;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .journey-pin-wrapper {
+        height: auto !important;
+      }
+      .journey-stage {
+        position: relative !important;
+        height: auto !important;
+        overflow-x: auto !important;
+      }
+      .journey-track {
+        transform: none !important;
+        width: auto !important;
+      }
+      .journey-slide {
+        width: 100vw !important;
+      }
+    }
+  </style>
+</head>
+<body class="relative antialiased text-slate-800" style="overflow-x: clip !important; overflow-y: visible !important;">
+<div id="landing-view" style="overflow: visible !important;">
+<!-- 1. NAVEGAÇÃO FLUTUANTE PILL CENTRALIZADA -->
+<header class="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-4xl transition-all duration-300">
+<nav class="bg-white/85 backdrop-blur-xl border border-[#2457D6]/20 shadow-pill rounded-full px-4 sm:px-6 py-2.5 flex items-center justify-between gap-4">
+<!-- Marca -->
+<a class="flex items-center gap-2.5 group" href="#">
+<div class="w-8 h-8 rounded-full bg-white flex items-center justify-center p-0.5 shadow-sm shadow-brand/20 border border-slate-100 overflow-hidden group-hover:scale-105 transition-transform">
+<img alt="Retain Logo" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTOnBH3ahM9k3lmw6MNaHPBJxBOLP741Cse7wa7ZGnXJqomUFwHPqosixy8yEh6MGuwg0meIunENl0Vdtnti-asHYRZRcG7Vz5-1WQdcK_CzlO5j1N8k1afiQbCgUrFznXZeyDR2rvkEyD23iiIrKydYRl4S7A0aB48Kq0DWxNntUgVRIs5ZJHTpOy41zxVdJFSX8-_XlSnDNqHArw4TcgNhd-9Eloa9Vg22M38BVf-mm5tBUqABy8TfOJfiG2hIGq1w" style="object-fit: contain; max-width: 100%; max-height: 100%;"/>
+</div>
+<div class="flex flex-col">
+<span class="text-xs sm:text-sm font-extrabold text-navy tracking-tight leading-none group-hover:text-brand transition-colors">
+            Retain
+          </span>
+<span class="text-[10px] text-slate-400 font-medium tracking-normal leading-tight">by bolt</span>
+</div>
+</a>
+<!-- Links discretos e indicadores de navegação -->
+<div class="hidden md:flex items-center gap-6 text-xs font-semibold text-slate-600">
+<a class="hover:text-brand transition-colors" href="#certeza">Da incerteza à ação</a>
+<a class="hover:text-brand transition-colors" href="#diferenciais">Diferenciais</a>
+<a class="hover:text-brand transition-colors" href="#como-funciona">Como funciona</a>
+</div>
+<!-- Barra tênue de progresso de scroll embutida no pill -->
+<div class="hidden lg:flex items-center gap-1.5 px-3 py-1 bg-slate-100/80 rounded-full text-[10px] text-slate-500 font-mono">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="" id="scroll-percentage-text">0%</span>
+</div>
+<!-- CTA Principal do Pill -->
+<button class="inline-flex items-center gap-1.5 px-4 py-1.5 sm:px-5 sm:py-2 rounded-full bg-brand text-white text-xs sm:text-sm font-semibold hover:bg-brandHover shadow-sm shadow-brand/30 transition-all hover:scale-[1.02] active:scale-[0.98]" onclick="openDashboard(event)">
+<span class="">Acessar painel</span>
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+</svg>
+</button>
+</nav>
+<!-- Linha tênue global de leitura no pill -->
+<div class="w-[85%] mx-auto h-[2px] bg-slate-200/50 rounded-full mt-1.5 overflow-hidden">
+<div class="h-full bg-brand w-0 transition-all duration-150" id="nav-progress-bar" style="width: 0%;"></div>
+</div>
+</header>
+<!-- 2. HERO EM TELA CHEIA (100vh) -->
+<section class="min-h-screen hero-mesh flex flex-col justify-between items-center px-4 sm:px-6 pt-28 pb-8 text-center relative overflow-hidden">
+<!-- Elementos decorativos de fundo sutis -->
+<div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-brand/5 rounded-full blur-3xl pointer-events-none -z-10"></div>
+<div class="absolute -top-20 right-10 w-96 h-96 bg-emeraldAccent/5 rounded-full blur-3xl pointer-events-none -z-10"></div>
+<div class="max-w-4xl mx-auto my-auto space-y-8">
+<!-- Badge Minimalista com dados auditáveis -->
+<div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/90 border border-slate-200/80 shadow-xs backdrop-blur-md text-xs font-semibold text-slate-700">
+<span class="inline-flex items-center justify-center w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="font-bold text-navy">Base calibrada</span>
+<span class="text-slate-300">•</span>
+<span class="text-slate-500">80 clientes analisados (58 ativos / 22 cancelados)</span>
+</div>
+<!-- Headline Editorial Mista (Sans + Serif Italic) -->
+<h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold text-navy tracking-tight leading-[1.1] max-w-3xl mx-auto">
+        Antecipe riscos.<br/>
+<span class="font-serif italic font-normal text-brand tracking-normal text-4xl sm:text-6xl md:text-7xl">Priorize clientes.</span><br/>
+<span class="relative">
+          Proteja receita.
+          <svg class="absolute -bottom-2 left-0 w-full h-3 text-emeraldAccent/40 -z-10" fill="none" preserveaspectratio="none" viewbox="0 0 200 12">
+<path d="M2 9C50 3 150 2 198 8" stroke="currentColor" stroke-linecap="round" stroke-width="4"></path>
+</svg>
+</span>
+</h1>
+<!-- Subtítulo Conciso -->
+<p class="text-base sm:text-xl text-slate-600 max-w-2xl mx-auto font-normal leading-relaxed">
+        Transforme sinais dispersos de <span class="text-navy font-semibold">adoção, operação, suporte, NPS, reuniões e financeiro</span> em decisões de intervenção imediatas e auditáveis.
+      </p>
+<!-- Ações Hero -->
+<div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+<button class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-brand text-white text-sm sm:text-base font-bold hover:bg-brandHover shadow-pill transition-all hover:scale-105 active:scale-95 group" onclick="openDashboard(event)">
+<span class="">Acessar painel administrativo</span>
+<svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+</svg>
+</button>
+<a class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-white/80 hover:bg-white text-slate-700 text-sm font-semibold border border-slate-200/90 shadow-xs transition-all hover:text-navy" href="#certeza">
+<span class="">Ver narrativa explicativa</span>
+</a>
+</div>
+<!-- Métricas Resumo em Pill -->
+<div class="pt-4 flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs text-slate-500 font-medium">
+<span class="flex items-center gap-1.5"><strong class="text-navy font-bold">R$ 31.819</strong> expostos na fila de risco</span>
+<span class="text-slate-300 hidden sm:inline">•</span>
+<span class="flex items-center gap-1.5"><strong class="text-navy font-bold">6 fatores</strong> ponderados sem caixa-preta</span>
+<span class="text-slate-300 hidden sm:inline">•</span>
+<span class="flex items-center gap-1.5 text-emerald-700 font-semibold">✓ Normalização 100% auditável</span>
+</div>
+</div>
+<!-- Indicador Inferior de Scroll -->
+<div class="pt-4 pb-2 text-center text-xs text-slate-400 flex flex-col items-center gap-1.5 animate-bounce">
+<span class="tracking-widest uppercase text-[10px] font-semibold text-slate-500">Role para explorar</span>
+<svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M19 14l-7 7m0 0l-7-7m7 7V3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+</section>
+<!-- 3. CENA ESTEIRA HORIZONTAL "JORNADA DE DECISÃO" (ARQUITETURA ROBUSTA COM CABEÇALHO PERMANENTE) -->
+<section class="bg-white border-y border-slate-200/80 relative" id="certeza" style="overflow: visible !important;">
+<div class="journey-pin-wrapper" id="journey-scroll-wrapper">
+<div class="journey-stage" id="journey-stage">
+<!-- Fundo com grid sutil -->
+<div class="absolute inset-0 bg-[linear-gradient(to_right,#f1f5f9_1px,transparent_1px),linear-gradient(to_bottom,#f1f5f9_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-60 pointer-events-none"></div>
+<!-- Topo Permanente da Jornada dentro do Palco Sticky -->
+<div class="absolute top-8 sm:top-12 inset-x-0 mx-auto max-w-xl text-center z-30 px-4 pointer-events-auto">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-brand text-xs font-bold uppercase tracking-wider mb-3 shadow-xs">
+<span class="">Jornada de Decisão</span>
+</div>
+<div class="flex items-center justify-center gap-2">
+<button class="px-3.5 py-1 rounded-full text-xs font-semibold bg-brand text-white shadow-xs transition-all" id="journey-nav-1" onclick="scrollJourneyToStep(0)">
+              01 Clareza
+            </button>
+<button class="px-3.5 py-1 rounded-full text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-all" id="journey-nav-2" onclick="scrollJourneyToStep(1)">
+              02 Priorização
+            </button>
+<button class="px-3.5 py-1 rounded-full text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-all" id="journey-nav-3" onclick="scrollJourneyToStep(2)">
+              03 Intervenção
+            </button>
+</div>
+</div>
+<!-- Trilha Horizontal (3 slides de 100% de largura) -->
+<div class="journey-track" id="journey-track">
+<!-- SLIDE 1: ETAPA 01 - CLAREZA -->
+<div class="journey-slide px-4 sm:px-6">
+<div class="w-full max-w-lg md:max-w-xl mx-auto text-center space-y-4 sm:space-y-5 bg-white/90 p-6 sm:p-10 rounded-3xl border border-slate-100 shadow-subtle backdrop-blur-md">
+<span class="text-xs sm:text-sm font-mono text-brand font-bold uppercase tracking-wider block">ETAPA 01 — CLAREZA</span>
+<h2 class="text-2xl sm:text-4xl md:text-5xl font-extrabold text-navy tracking-tight leading-tight">
+                  Sinais dispersos viram<br/>
+<span class="font-serif italic font-normal text-brand text-3xl sm:text-5xl md:text-6xl">diagnóstico único.</span>
+</h2>
+<p class="text-slate-600 text-sm sm:text-base max-w-md mx-auto leading-relaxed">
+                  Queda de acessos na plataforma e chamados reabertos deixam de ser ruído em silos e se convertem em scores normalizados de 0 a 100 com metodologia transparente.
+                </p>
+<div class="pt-2 flex flex-wrap justify-center gap-2 text-xs font-semibold text-slate-500">
+<span class="px-3 py-1 bg-slate-100 rounded-lg">6 dimensões unificadas</span>
+<span class="px-3 py-1 bg-blue-50 text-brand rounded-lg">Score de Risco de 0 a 100</span>
+<span class="px-3 py-1 bg-slate-100 rounded-lg">Sem silos</span>
+</div>
+</div>
+</div>
+<!-- SLIDE 2: ETAPA 02 - PRIORIZAÇÃO -->
+<div class="journey-slide px-4 sm:px-6">
+<div class="w-full max-w-lg md:max-w-xl mx-auto text-center space-y-4 sm:space-y-5 bg-white/90 p-6 sm:p-10 rounded-3xl border border-slate-100 shadow-subtle backdrop-blur-md">
+<span class="text-xs sm:text-sm font-mono text-amber-600 font-bold uppercase tracking-wider block">ETAPA 02 — PRIORIZAÇÃO</span>
+<h2 class="text-2xl sm:text-4xl md:text-5xl font-extrabold text-navy tracking-tight leading-tight">
+                  Prioridade vira<br/>
+<span class="font-serif italic font-normal text-amber-600 text-3xl sm:text-5xl md:text-6xl">ação executada.</span>
+</h2>
+<p class="text-slate-600 text-sm sm:text-base max-w-md mx-auto leading-relaxed">
+                  Multiplicamos a severidade pelo valor do contrato (Score × MRR). Sua equipe atende primeiro onde o dinheiro de negócio está realmente exposto.
+                </p>
+<div class="pt-2 flex flex-wrap justify-center gap-2 text-xs font-semibold text-slate-500">
+<span class="px-3 py-1 bg-amber-50 text-amber-800 rounded-lg font-mono">Valor Exposto = Score × MRR</span>
+<span class="px-3 py-1 bg-slate-100 rounded-lg">Fila ordenada por risco financeiro</span>
+<span class="px-3 py-1 bg-slate-100 rounded-lg">R$ 31.819 sob gestão</span>
+</div>
+</div>
+</div>
+<!-- SLIDE 3: ETAPA 03 - INTERVENÇÃO -->
+<div class="journey-slide px-4 sm:px-6">
+<div class="w-full max-w-lg md:max-w-xl mx-auto text-center space-y-4 sm:space-y-5 bg-white/90 p-6 sm:p-10 rounded-3xl border border-slate-100 shadow-subtle backdrop-blur-md">
+<span class="text-xs sm:text-sm font-mono text-emerald-600 font-bold uppercase tracking-wider block">ETAPA 03 — INTERVENÇÃO</span>
+<h2 class="text-2xl sm:text-4xl md:text-5xl font-extrabold text-navy tracking-tight leading-tight">
+                  Decisão rápida com<br/>
+<span class="font-serif italic font-normal text-emeraldAccent text-3xl sm:text-5xl md:text-6xl">trilha auditável.</span>
+</h2>
+<p class="text-slate-600 text-sm sm:text-base max-w-md mx-auto leading-relaxed">
+                  Diagnósticos específicos ativam planos operacionais sob medida: reuniões executivas, intervenção de engenharia e auditoria com registro de reversão.
+                </p>
+<div class="pt-2 flex flex-wrap justify-center gap-2 text-xs font-semibold text-slate-500">
+<span class="px-3 py-1 bg-emerald-50 text-emerald-800 rounded-lg">Planos sob medida</span>
+<span class="px-3 py-1 bg-slate-100 rounded-lg">Histórico de reversão</span>
+<span class="px-3 py-1 bg-emerald-50 text-emerald-800 rounded-lg">Feedback em tempo real</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Indicador Inferior com Barra de Progresso da Trilha -->
+<div class="absolute bottom-8 inset-x-0 mx-auto max-w-xs text-center z-30 px-4 pointer-events-auto">
+<div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+<div class="bg-brand h-full transition-all duration-75" id="journey-progress-bar" style="width: 0%"></div>
+</div>
+<span class="text-[11px] font-mono text-slate-400 mt-2 block tracking-wider uppercase">Esteira interativa horizontal</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. CENA STICKY DE BENEFÍCIOS (LAYOUT DIVIDIDO 45/55 COM MOCKUP REATIVO) -->
+<section class="relative min-h-[300vh] bg-appbg border-b border-slate-200/80 m-0" id="diferenciais">
+<div class="sticky top-0 h-screen w-full flex items-center overflow-hidden px-4 sm:px-8 max-w-7xl mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 w-full items-center">
+<!-- COLUNA ESQUERDA (45%): Narrativa editorial que troca com o scroll -->
+<div class="lg:col-span-5 space-y-6">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-slate-200 text-xs font-bold text-slate-700 shadow-xs">
+<span class="w-2 h-2 rounded-full bg-brand"></span>
+<span class="">DIFERENCIAIS DO MODELO</span>
+</div>
+<div class="relative min-h-[220px]">
+<!-- Conteúdo 01 -->
+<div class="transition-all duration-500 block" id="benefit-text-1">
+<span class="text-4xl sm:text-5xl font-mono font-bold text-brand/25 block mb-2">01</span>
+<h3 class="text-2xl sm:text-4xl font-extrabold text-navy tracking-tight">Pesos transparentes</h3>
+<p class="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed">
+                Cada peso possui memória de cálculo aberta baseada na variação observada entre ativos (58) e cancelados (22). Nada de caixas-pretas: a fórmula é auditável por toda a liderança.
+              </p>
+<div class="mt-4 inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50/80 rounded-lg border border-blue-100 text-xs font-mono text-brand font-semibold">
+                peso = diferença ÷ soma (205,9) × 100
+              </div>
+</div>
+<!-- Conteúdo 02 -->
+<div class="transition-all duration-500 hidden" id="benefit-text-2">
+<span class="text-4xl sm:text-5xl font-mono font-bold text-amber-500/30 block mb-2">02</span>
+<h3 class="text-2xl sm:text-4xl font-extrabold text-navy tracking-tight">Prioridade por valor exposto</h3>
+<p class="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed">
+                Um cliente de R$ 33.881 com risco moderado (33/100) expõe R$ 11.181 à perda, enquanto uma conta de R$ 8.672 com risco 59 expõe R$ 5.116. Sua equipe protege onde a receita dói mais.
+              </p>
+<div class="mt-4 inline-flex items-center gap-2 px-3 py-1.5 bg-amber-50 rounded-lg border border-amber-200 text-xs font-medium text-amber-900">
+                Valor Exposto = Score (%) × MRR
+              </div>
+</div>
+<!-- Conteúdo 03 -->
+<div class="transition-all duration-500 hidden" id="benefit-text-3">
+<span class="text-4xl sm:text-5xl font-mono font-bold text-emeraldAccent/30 block mb-2">03</span>
+<h3 class="text-2xl sm:text-4xl font-extrabold text-navy tracking-tight">Recomendações acionáveis</h3>
+<p class="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed">
+                O sistema diagnostica o fator causador (SLA, engajamento ou atraso financeiro) e sugere um plano de ação pronto para ser registrado, agendado ou descartado com histórico de reversão.
+              </p>
+<div class="mt-4 inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-50 rounded-lg border border-emerald-200 text-xs font-semibold text-emerald-900">
+                ✓ Planos operacionais imediatos com feedback
+              </div>
+</div>
+</div>
+<!-- Pílula de navegação manual entre os estados para acessibilidade rápida -->
+<div class="flex items-center gap-2 pt-2">
+<button class="px-3 py-1 rounded-full text-xs font-semibold bg-brand text-white transition-all shadow-xs" id="btn-state-1" onclick="setBenefitState(1)">01 Pesos</button>
+<button class="px-3 py-1 rounded-full text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-all" id="btn-state-2" onclick="setBenefitState(2)">02 Fila R$</button>
+<button class="px-3 py-1 rounded-full text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-all" id="btn-state-3" onclick="setBenefitState(3)">03 Ação</button>
+</div>
+</div>
+<!-- COLUNA DIREITA (55%): Mockup de Alta Fidelidade Reativo -->
+<div class="lg:col-span-7">
+<div class="bg-white rounded-2xl border border-slate-200/90 shadow-2xl overflow-hidden transition-all duration-500 transform hover:translate-y-[-2px]">
+<!-- Barra superior simulada da UI do Retain -->
+<div class="bg-slate-900 text-slate-300 px-4 py-3 flex items-center justify-between border-b border-slate-800 text-xs">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-rose-500/80"></div>
+<div class="w-3 h-3 rounded-full bg-amber-500/80"></div>
+<div class="w-3 h-3 rounded-full bg-emerald-500/80"></div>
+<span class="ml-2 font-mono text-[11px] text-slate-400">retain.app · Painel Interativo</span>
+</div>
+<span class="inline-flex items-center gap-1.5 text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full border border-emerald-500/30">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                Base 80 contas
+              </span>
+</div>
+<!-- Subheader da simulação com botão direto para a tela do painel -->
+<div class="p-4 sm:p-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+<div>
+<div class="flex items-center gap-2">
+<h4 class="font-bold text-navy text-sm sm:text-base">Retain</h4>
+<span class="text-[9px] uppercase font-bold text-brand bg-brandLight px-2 py-0.5 rounded-full">Essencial</span>
+</div>
+<p class="text-[11px] text-slate-500">Demonstração ao vivo dos 6 fatores e fila priorizada</p>
+</div>
+<button class="text-xs text-brand font-bold hover:underline flex items-center gap-1" onclick="openDashboard(event)">
+<span class="">Abrir painel completo</span>
+<span class="">→</span>
+</button>
+</div>
+<!-- CORPO DO MOCKUP: Alterna dinamicamente entre os 3 estados -->
+<div class="p-4 sm:p-6 min-h-[380px] flex flex-col justify-center">
+<!-- ESTADO 01: PESOS TRANSPARENTES -->
+<div class="space-y-4 transition-all duration-500 block" id="mockup-state-1">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-navy uppercase tracking-wider">Etapa 2 · Distribuição Proporcional dos Pesos</span>
+<span class="text-xs font-bold text-brand bg-blue-50 px-2 py-0.5 rounded border border-blue-200">Soma: 100,0%</span>
+</div>
+<!-- Mini Grid com os 6 pesos auditáveis -->
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs">
+<div class="p-2.5 rounded-xl bg-slate-50 border border-blue-200 bg-blue-50/30">
+<div class="flex justify-between items-center mb-1">
+<span class="font-semibold text-slate-700">Adoção</span>
+<span class="font-extrabold text-brand">21,7%</span>
+</div>
+<div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+<div class="bg-brand h-full rounded-full" style="width: 21.7%"></div>
+</div>
+<span class="text-[10px] text-slate-400 mt-1 block">Maior discriminante (+44,7 pts)</span>
+</div>
+<div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+<div class="flex justify-between items-center mb-1">
+<span class="font-semibold text-slate-700">Operação</span>
+<span class="font-extrabold text-navy">20,7%</span>
+</div>
+<div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+<div class="bg-indigo-600 h-full rounded-full" style="width: 20.7%"></div>
+</div>
+<span class="text-[10px] text-slate-400 mt-1 block">SLA e resolução (+42,7 pts)</span>
+</div>
+<div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+<div class="flex justify-between items-center mb-1">
+<span class="font-semibold text-slate-700">Suporte</span>
+<span class="font-extrabold text-navy">16,7%</span>
+</div>
+<div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+<div class="bg-purple-600 h-full rounded-full" style="width: 16.7%"></div>
+</div>
+<span class="text-[10px] text-slate-400 mt-1 block">Críticos e reaberturas (+34,5)</span>
+</div>
+<div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+<div class="flex justify-between items-center mb-1">
+<span class="font-semibold text-slate-700">Satisfação</span>
+<span class="font-extrabold text-navy">16,7%</span>
+</div>
+<div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+<div class="bg-amber-500 h-full rounded-full" style="width: 16.7%"></div>
+</div>
+<span class="text-[10px] text-slate-400 mt-1 block">NPS e feedback (+34,3 pts)</span>
+</div>
+<div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+<div class="flex justify-between items-center mb-1">
+<span class="font-semibold text-slate-700">Engajamento</span>
+<span class="font-extrabold text-navy">14,0%</span>
+</div>
+<div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+<div class="bg-teal-500 h-full rounded-full" style="width: 14.0%"></div>
+</div>
+<span class="text-[10px] text-slate-400 mt-1 block">Cadência reuniões (+28,8 pts)</span>
+</div>
+<div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+<div class="flex justify-between items-center mb-1">
+<span class="font-semibold text-slate-700">Financeiro</span>
+<span class="font-extrabold text-navy">10,2%</span>
+</div>
+<div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+<div class="bg-slate-500 h-full rounded-full" style="width: 10.2%"></div>
+</div>
+<span class="text-[10px] text-slate-400 mt-1 block">Atraso fatura (+20,9 pts)</span>
+</div>
+</div>
+<!-- Caixa pedagógica de cálculo aberto -->
+<div class="p-3 bg-blue-50/70 border border-blue-200 rounded-xl text-xs space-y-1">
+<div class="flex items-center justify-between text-navy font-bold">
+<span class="">💡 Memória de cálculo de Adoção:</span>
+<span class="text-brand font-mono">44,7 ÷ 205,9 × 100 = 21,7%</span>
+</div>
+<p class="text-[11px] text-slate-600">
+                    Calculado dividindo a diferença média (51,2 nos cancelados vs 6,4 nos ativos) pela soma total discriminante.
+                  </p>
+</div>
+</div>
+<!-- ESTADO 02: PRIORIDADE POR VALOR EXPOSTO -->
+<div class="space-y-3.5 transition-all duration-500 hidden" id="mockup-state-2">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-navy uppercase tracking-wider">Etapa 5 · Fila Ordenada por Risco Financeiro</span>
+<span class="text-[11px] text-slate-500">Exibindo 2 de 14 alertas</span>
+</div>
+<!-- Card Cliente #1 C080 -->
+<div class="p-3.5 rounded-xl border border-brand bg-blue-50/40 shadow-xs space-y-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-full bg-brand text-white font-bold text-xs flex items-center justify-center">#1</span>
+<div>
+<h5 class="text-xs font-bold text-navy">Cliente C080 <span class="text-[10px] font-normal text-slate-500">• Enterprise (Varejo)</span></h5>
+<span class="text-[10px] text-slate-500">MRR R$ 20.924 · Score: <strong class="text-rose-600">54/100 (Alto risco)</strong></span>
+</div>
+</div>
+<div class="text-right">
+<span class="text-xs font-extrabold text-navy block">R$ 11.299</span>
+<span class="text-[9px] font-medium text-brand">54% × R$ 20.924</span>
+</div>
+</div>
+</div>
+<!-- Card Cliente #2 C071 (Evidencia a pedagogia do valor exposto) -->
+<div class="p-3.5 rounded-xl border border-slate-200 bg-white space-y-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-full bg-slate-100 text-slate-700 font-bold text-xs flex items-center justify-center">#2</span>
+<div>
+<h5 class="text-xs font-bold text-navy">Cliente C071 <span class="text-[10px] font-normal text-slate-500">• Enterprise (Varejo)</span></h5>
+<span class="text-[10px] text-slate-500">MRR R$ 33.881 · Score: <strong class="text-amber-600">33/100 (Atenção)</strong></span>
+</div>
+</div>
+<div class="text-right">
+<span class="text-xs font-extrabold text-navy block">R$ 11.181</span>
+<span class="text-[9px] font-medium text-amber-700">33% × R$ 33.881</span>
+</div>
+</div>
+</div>
+<!-- Nota explicativa -->
+<div class="p-3 bg-amber-50/70 border border-amber-200/80 rounded-xl text-[11px] text-amber-900 leading-snug">
+                  ⚖️ <strong>Por que essa ordem?</strong> O Cliente C071 tem menor risco relativo (33), mas expõe mais receita financeira (R$ 11.181) do que clientes com risco 59 que pagam R$ 8.672.
+                </div>
+</div>
+<!-- ESTADO 03: RECOMENDAÇÕES ACIONÁVEIS -->
+<div class="space-y-4 transition-all duration-500 hidden" id="mockup-state-3">
+<div class="p-4 rounded-xl bg-gradient-to-br from-emerald-50 to-green-50 border border-emerald-200 space-y-3">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">
+                        ✓
+                      </div>
+<div>
+<span class="text-[9px] uppercase font-bold tracking-wider text-emerald-800">Etapa 6 — Recomendação de Intervenção</span>
+<h5 class="text-xs sm:text-sm font-bold text-emerald-950">Plano de recuperação operacional (Cliente C080)</h5>
+</div>
+</div>
+<span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">Ação Imediata</span>
+</div>
+<p class="text-xs text-emerald-900 leading-relaxed bg-white/80 p-2.5 rounded-lg border border-emerald-200/60">
+                    “O SLA caiu 17 pontos para 61% e o tempo de resolução aumentou de 4h para 19h. Recomenda-se contato executivo e alinhamento com engenharia.”
+                  </p>
+<div class="flex flex-wrap gap-2 pt-1">
+<button class="px-3 py-1.5 bg-emerald-700 text-white text-xs font-semibold rounded-lg shadow-xs flex items-center gap-1">
+<span class="">✓ Registrar ação</span>
+</button>
+<button class="px-3 py-1.5 bg-white text-emerald-900 border border-emerald-300 text-xs font-semibold rounded-lg">
+                      Agendar reunião
+                    </button>
+<button class="px-3 py-1.5 bg-white text-emerald-900 border border-emerald-300 text-xs font-semibold rounded-lg">
+                      Abrir chamado N3
+                    </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer do Mockup com link dinâmico -->
+<div class="px-5 py-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+<span class="">Sincronizado com os dados demonstrativos</span>
+<button class="text-brand font-bold hover:underline" onclick="openDashboard(event)">
+                Simular no painel interativo →
+              </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. CENA "COMO FUNCIONA" (FLUXO HORIZONTAL EM UMA TELA DE 100VH) -->
+<section class="min-h-screen flex flex-col justify-center bg-white py-16 px-4 sm:px-6 border-b border-slate-200/80 relative" id="como-funciona">
+<div class="max-w-6xl mx-auto w-full space-y-12">
+<!-- Cabeçalho da cena -->
+<div class="text-center max-w-2xl mx-auto space-y-3">
+<span class="text-xs font-bold text-brand uppercase tracking-wider bg-brandLight px-3 py-1 rounded-full">
+          Metodologia Compacta
+        </span>
+<h2 class="text-3xl sm:text-5xl font-extrabold text-navy tracking-tight">
+          Como o Retain funciona em 3 passos
+        </h2>
+<p class="text-sm sm:text-base text-slate-600">
+          Um fluxo linear de ingestão, cálculo explicável e execução sem sobrecarregar seu time.
+        </p>
+</div>
+<!-- Fluxo com linha conectora progressiva -->
+<div class="relative">
+<!-- Linha conectora no desktop -->
+<div class="hidden md:block absolute top-1/2 left-10 right-10 h-1 bg-slate-200 -translate-y-1/2 z-0">
+<div class="h-full bg-brand w-2/3 transition-all duration-700" id="flow-progress-line" style="width: 100%;"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
+<!-- Passo 1 -->
+<div class="bg-appbg hover:bg-white rounded-2xl p-6 border border-slate-200/90 shadow-xs hover:shadow-lg transition-all space-y-4 group">
+<div class="w-12 h-12 rounded-2xl bg-brand text-white flex items-center justify-center font-extrabold text-lg shadow-md shadow-brand/20 group-hover:scale-110 transition-transform">
+              1
+            </div>
+<div>
+<span class="text-[11px] font-mono font-semibold text-brand uppercase">Ingestão Contínua</span>
+<h3 class="text-lg font-bold text-navy mt-0.5">Conecte os sinais</h3>
+</div>
+<p class="text-xs text-slate-600 leading-relaxed">
+              Consolida logins, cumprimento de SLA, tickets reabertos, NPS, cancelamentos de reuniões e pontualidade financeira em uma única fonte da verdade.
+            </p>
+<div class="pt-2 border-t border-slate-200/60 text-[11px] text-brand font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+<span class="">6 dimensões integradas</span>
+<span class="">→</span>
+</div>
+</div>
+<!-- Passo 2 -->
+<div class="bg-appbg hover:bg-white rounded-2xl p-6 border border-slate-200/90 shadow-xs hover:shadow-lg transition-all space-y-4 group">
+<div class="w-12 h-12 rounded-2xl bg-navy text-white flex items-center justify-center font-extrabold text-lg shadow-md shadow-navy/20 group-hover:scale-110 transition-transform">
+              2
+            </div>
+<div>
+<span class="text-[11px] font-mono font-semibold text-navy uppercase">Auditoria Estatística</span>
+<h3 class="text-lg font-bold text-navy mt-0.5">Entenda o risco</h3>
+</div>
+<p class="text-xs text-slate-600 leading-relaxed">
+              Pesos ponderados pela variação real observada na amostra (58 ativos / 22 cancelados) com sliders livres para calibração humana pelo gestor.
+            </p>
+<div class="pt-2 border-t border-slate-200/60 text-[11px] text-navy font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+<span class="">Matemática aberta e explicável</span>
+<span class="">→</span>
+</div>
+</div>
+<!-- Passo 3 -->
+<div class="bg-appbg hover:bg-white rounded-2xl p-6 border border-slate-200/90 shadow-xs hover:shadow-lg transition-all space-y-4 group">
+<div class="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center font-extrabold text-lg shadow-md shadow-emerald-600/20 group-hover:scale-110 transition-transform">
+              3
+            </div>
+<div>
+<span class="text-[11px] font-mono font-semibold text-emerald-700 uppercase">Foco no ARR</span>
+<h3 class="text-lg font-bold text-navy mt-0.5">Aja com prioridade</h3>
+</div>
+<p class="text-xs text-slate-600 leading-relaxed">
+              Fila ordenada por Valor Exposto (Risco × Mensalidade) gerando ações operacionais rápidas com feedback imediato e registro auditado.
+            </p>
+<div class="pt-2 border-t border-slate-200/60 text-[11px] text-emerald-700 font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+<span class="">R$ 31.819 sob gestão</span>
+<span class="">→</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 6. CENA DE FRASE EDITORIAL DE IMPACTO (NAVY PROFUNDO #14213D) -->
+<section class="min-h-screen dark-mesh flex items-center justify-center py-20 px-4 sm:px-6 text-white text-center relative overflow-hidden">
+<div class="max-w-4xl mx-auto space-y-8 relative z-10">
+<span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs font-semibold text-blue-200">
+<span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+        Visão 360° da Saúde da Conta
+      </span>
+<!-- Tipografia display sequencial dos 6 sinais -->
+<div class="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-snug space-y-2">
+<span class="text-slate-400 hover:text-white transition-colors">Adoção.</span>
+<span class="text-slate-400 hover:text-white transition-colors">Operação.</span>
+<span class="text-slate-400 hover:text-white transition-colors">Suporte.</span><br class="hidden sm:inline"/>
+<span class="text-slate-400 hover:text-white transition-colors">Satisfação.</span>
+<span class="text-slate-400 hover:text-white transition-colors">Engajamento.</span>
+<span class="text-slate-400 hover:text-white transition-colors">Financeiro.</span>
+</div>
+<div class="pt-4">
+<p class="text-xl sm:text-3xl md:text-4xl font-serif italic text-blue-200">
+          Tudo sintetizado em uma <span class="text-emerald-400 font-sans not-italic font-extrabold underline decoration-brand decoration-4">prioridade clara</span>.
+        </p>
+</div>
+<p class="text-xs sm:text-sm text-slate-400 max-w-lg mx-auto leading-relaxed pt-2">
+        Sem fórmulas misteriosas ou suposições. O Retain conecta o comportamento do cliente com a defesa da receita recorrente.
+      </p>
+<div class="pt-6">
+<button class="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-brand hover:bg-brandHover text-white font-bold text-sm shadow-glow transition-all hover:scale-105 active:scale-95" onclick="openDashboard(event)">
+<span class="">Ver tela do produto ao vivo</span>
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+</svg>
+</button>
+</div>
+</div>
+</section>
+<!-- 7. CTA FINAL EM TELA CHEIA -->
+<section class="min-h-screen bg-white flex flex-col justify-between py-16 px-4 sm:px-6 relative overflow-hidden">
+<div class="max-w-4xl mx-auto my-auto text-center space-y-8">
+<div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="">Pronto para navegar no protótipo calibrado</span>
+</div>
+<h2 class="text-3xl sm:text-5xl md:text-6xl font-extrabold text-navy tracking-tight leading-tight">
+        Proteja receita antes que o risco<br/>
+<span class="font-serif italic font-normal text-brand text-4xl sm:text-6xl md:text-7xl">vire cancelamento.</span>
+</h2>
+<p class="text-base sm:text-lg text-slate-600 max-w-xl mx-auto leading-relaxed">
+        Acesse imediatamente a fila de clientes, simule alterações de pesos na Etapa 2 e teste a resposta do modelo para o Cliente C080.
+      </p>
+<!-- Metadados da base demonstrativa -->
+<div class="inline-flex flex-wrap items-center justify-center gap-4 p-3 bg-appbg rounded-2xl border border-slate-200 text-xs text-slate-600">
+<span class="">💰 <strong>R$ 31.819</strong> expostos na amostra</span>
+<span class="text-slate-300">•</span>
+<span class="">👥 <strong>80 clientes</strong> calibrados</span>
+<span class="text-slate-300">•</span>
+<span class="">⚖️ <strong>Pesos 100%</strong> auditáveis</span>
+</div>
+<!-- Botão CTA Principal Final -->
+<div class="pt-2">
+<button class="inline-flex items-center gap-2.5 px-9 py-4 rounded-full bg-brand text-white font-bold text-base sm:text-lg hover:bg-brandHover shadow-pill transition-all hover:scale-105 active:scale-95 group" onclick="openDashboard(event)">
+<span class="">Começar análise</span>
+<svg class="w-5 h-5 group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+</svg>
+</button>
+</div>
+<p class="text-[11px] text-slate-400">
+        Acesso direto ao Modo Essencial com Divulgação Progressiva • Sem necessidade de cadastro
+      </p>
+</div>
+<!-- RODAPÉ REFINADO -->
+<footer class="max-w-6xl mx-auto w-full pt-12 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+<div class="flex items-center gap-2.5">
+<div class="w-6 h-6 rounded-full bg-white flex items-center justify-center p-0.5 border border-slate-200 overflow-hidden">
+<img alt="Retain Logo" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALUBE3WFNj19aXfNloQk3ba0aB6XsizipSVzTDD5FSHXc8pBlVc52jUFqrOKYtTm_LXelp785MT_D922W_uYJhHMbt_rFx2hbJDsEm7M3-2jA2Se5VnOWnaVw6vxIzPhXj7Wz2dXxzo6V9a9Ghb7iNkRwBoAYm5Bz7GQm2FzV0J7AvDON0XhagXUGop9c62rWRA6xx1gPDGIXdBR5O7oznijMy5ZmqNKcmJ_Bk6Uu9kN8gzs3TKoSk64orC4l7_CBxAQ" style="object-fit: contain; max-width: 100%; max-height: 100%;"/>
+</div>
+<span class="font-bold text-navy">Retain</span>
+<span class="text-slate-300">|</span>
+<span class="">MVP Hackathon CS • v1.2</span>
+</div>
+<div class="text-[11px] text-slate-400 text-center sm:text-right">
+        Base empírica: 80 clientes (58 ativos / 22 cancelados) • Pesos matemáticos auditáveis
+      </div>
+</footer>
+</section>
+</div>
+<!-- CONTAINER DE INTERFACE DASHBOARD (SPA Interna) -->
+<div class="hidden min-h-screen bg-appbg" id="dashboard-view">
+<div class="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between sticky top-0 z-40 shadow-xs">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-white flex items-center justify-center p-0.5 border border-slate-200 overflow-hidden">
+<img alt="Retain Logo" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvXoZP_DwIZAmG-9pOgGTPbh1SXftzJda1yRYMaTpgnTF2G_QruAhbMLUmL6NGJRq29tu7g1wNV-0zVtbWXbMN0XNeJJzsfqtFEvNVHQoeHnBhU1o0zF_ZfVcDuqCmCkV1_95XdG_sQlC87AAXV9hiwTDgVZt69CJB9xfhj4XgrLDKBwXtwqXknOo8Sa1HomAA2S3DzbuHIV2Z9Ou8cLM4Db1MZIiKiXMb_FZP7zSGCrwoIrXKKEO_WtPa54KDTNNRSg" style="object-fit: contain;"/>
+</div>
+<div>
+<h2 class="font-extrabold text-navy text-sm sm:text-base leading-tight">Retain · Painel Executivo de Risco</h2>
+<span class="text-[11px] text-slate-500">Base auditável: 80 clientes (58 ativos / 22 cancelados)</span>
+</div>
+</div>
+<button class="px-4 py-2 rounded-full border border-slate-200 hover:bg-slate-50 text-xs font-semibold text-slate-700 transition-all flex items-center gap-1.5" onclick="closeDashboard()">
+<span>← Voltar à narrativa</span>
+</button>
+</div>
+<div class="max-w-6xl mx-auto p-4 sm:p-6 space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+<span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-1">Receita em Risco (Fila)</span>
+<div class="text-2xl font-extrabold text-navy">R$ 31.819</div>
+<span class="text-xs text-rose-600 font-medium">14 contas sob atenção imediata</span>
+</div>
+<div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+<span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-1">Amostra Analisada</span>
+<div class="text-2xl font-extrabold text-navy">80 contas</div>
+<span class="text-xs text-slate-500">58 saudáveis / 22 canceladas</span>
+</div>
+<div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+<span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-1">Dimensões Ponderadas</span>
+<div class="text-2xl font-extrabold text-brand">6 fatores</div>
+<span class="text-xs text-emerald-600 font-medium">Cálculo 100% aberto</span>
+</div>
+</div>
+<!-- Fila prioritária no painel -->
+<div class="bg-white rounded-2xl border border-slate-200 shadow-xs p-6 space-y-4">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-bold text-navy text-base">Fila Priorizada por Valor Exposto (Score × MRR)</h3>
+<p class="text-xs text-slate-500">Equipe atua primeiro nas contas com maior exposição financeira real.</p>
+</div>
+<span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-brand">Modo Essencial</span>
+</div>
+<div class="space-y-3 pt-2">
+<div class="p-4 rounded-xl border border-brand bg-blue-50/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<span class="w-7 h-7 rounded-full bg-brand text-white font-bold text-xs flex items-center justify-center">#1</span>
+<div>
+<h4 class="font-bold text-navy text-sm">Cliente C080 <span class="text-xs font-normal text-slate-500">• Enterprise (Varejo)</span></h4>
+<span class="text-xs text-slate-500">MRR R$ 20.924 · Score: <strong class="text-rose-600 font-bold">54/100 (Alto risco)</strong></span>
+</div>
+</div>
+<div class="text-left sm:text-right">
+<div class="text-sm font-extrabold text-navy">R$ 11.299 expostos</div>
+<span class="text-xs text-emerald-700 font-semibold">Recomendado: SLA N3 + Reunião Executiva</span>
+</div>
+</div>
+<div class="p-4 rounded-xl border border-slate-200 bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<span class="w-7 h-7 rounded-full bg-slate-100 text-slate-700 font-bold text-xs flex items-center justify-center">#2</span>
+<div>
+<h4 class="font-bold text-navy text-sm">Cliente C071 <span class="text-xs font-normal text-slate-500">• Enterprise (Varejo)</span></h4>
+<span class="text-xs text-slate-500">MRR R$ 33.881 · Score: <strong class="text-amber-600 font-bold">33/100 (Atenção)</strong></span>
+</div>
+</div>
+<div class="text-left sm:text-right">
+<div class="text-sm font-extrabold text-navy">R$ 11.181 expostos</div>
+<span class="text-xs text-slate-500">Menor risco relativo, porém alta receita exposta</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- SCRIPT DE TRANSIÇÃO, SCROLL E NAVEGAÇÃO INTERATIVA -->
+<script>
+    // Navegação robusta para o Painel/Dashboard nos protótipos SPA
+    function openDashboard(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      window.location.hash = 'painel';
+      
+      const landing = document.getElementById('landing-view');
+      const dashboard = document.getElementById('dashboard-view');
+      if (landing && dashboard) {
+        landing.classList.add('hidden');
+        dashboard.classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+
+      // Comunicação entre iframes do Stitch
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({ type: 'NAVIGATE_TO_DASHBOARD', targetScreen: 'SCREEN_3', hash: '#painel' }, '*');
+      }
+    }
+    window.navigateToDashboard = openDashboard;
+
+    function closeDashboard() {
+      window.location.hash = '';
+      const landing = document.getElementById('landing-view');
+      const dashboard = document.getElementById('dashboard-view');
+      if (landing && dashboard) {
+        dashboard.classList.add('hidden');
+        landing.classList.remove('hidden');
+      }
+    }
+    window.closeDashboard = closeDashboard;
+
+    // Atualiza a classe ativa dos chips 01, 02, 03
+    function updateJourneyNavButtons(activeStep) {
+      for (let i = 1; i <= 3; i++) {
+        const btn = document.getElementById(`journey-nav-${i}`);
+        if (!btn) continue;
+        if (i === activeStep + 1) {
+          btn.className = 'px-3.5 py-1 rounded-full text-xs font-semibold bg-brand text-white shadow-xs transition-all';
+        } else {
+          btn.className = 'px-3.5 py-1 rounded-full text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-all';
+        }
+      }
+    }
+
+    // Rola verticalmente a esteira de jornada horizontal para a etapa desejada (0, 1, 2)
+    // Sem forçar translateX isolado: faz o scroll vertical proporcional exato
+    function scrollJourneyToStep(index) {
+      const wrapper = document.getElementById('journey-scroll-wrapper');
+      const stage = document.getElementById('journey-stage');
+      const track = document.getElementById('journey-track');
+      if (!wrapper || !stage || !track) return;
+
+      const slides = track.querySelectorAll('.journey-slide');
+      const numSlides = slides.length || 3;
+      const rect = wrapper.getBoundingClientRect();
+      const wrapperTop = (window.pageYOffset || document.documentElement.scrollTop) + rect.top;
+      const travel = wrapper.offsetHeight - window.innerHeight;
+      const targetScroll = wrapperTop + (index / (numSlides - 1)) * travel;
+
+      window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+    }
+
+    // Ajusta a geometria exata dos slides e track da Jornada
+    function adjustJourneyLayout() {
+      const stage = document.getElementById('journey-stage');
+      const track = document.getElementById('journey-track');
+      if (!stage || !track) return;
+
+      const stageWidth = stage.clientWidth;
+      const slides = track.querySelectorAll('.journey-slide');
+      
+      slides.forEach(slide => {
+        slide.style.width = stageWidth + 'px';
+        slide.style.flex = `0 0 ${stageWidth}px`;
+      });
+      track.style.width = (slides.length * stageWidth) + 'px';
+    }
+
+    // Controle de estado manual dos diferenciais
+    let currentBenefitState = 1;
+    function setBenefitState(stateIndex) {
+      currentBenefitState = stateIndex;
+      for (let i = 1; i <= 3; i++) {
+        const textEl = document.getElementById(`benefit-text-${i}`);
+        const mockupEl = document.getElementById(`mockup-state-${i}`);
+        const btnEl = document.getElementById(`btn-state-${i}`);
+        
+        if (i === stateIndex) {
+          if (textEl) textEl.classList.remove('hidden');
+          if (mockupEl) mockupEl.classList.remove('hidden');
+          if (btnEl) btnEl.className = 'px-3 py-1 rounded-full text-xs font-semibold bg-brand text-white transition-all shadow-xs';
+        } else {
+          if (textEl) textEl.classList.add('hidden');
+          if (mockupEl) mockupEl.classList.add('hidden');
+          if (btnEl) btnEl.className = 'px-3 py-1 rounded-full text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-all';
+        }
+      }
+    }
+
+    // Gerenciador de Scroll Contínuo (RequestAnimationFrame)
+    function onScrollUpdate() {
+      const currentScrollY = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+      const scrollHeight = Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.offsetHeight,
+        document.body.clientHeight,
+        document.documentElement.clientHeight
+      );
+      const clientHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+      const maxScroll = scrollHeight - clientHeight;
+      let pct = 0;
+      if (maxScroll > 0) {
+        pct = Math.min(100, Math.max(0, Math.round((currentScrollY / maxScroll) * 100)));
+      }
+      if (isNaN(pct) || !isFinite(pct)) {
+        pct = 0;
+      }
+
+      // Atualiza linha e badge no pill superior
+      const navBar = document.getElementById('nav-progress-bar');
+      const progressText = document.getElementById('scroll-percentage-text');
+      if (navBar) navBar.style.width = `${pct}%`;
+      if (progressText) progressText.textContent = `${pct}%`;
+
+      // 1. ESTEIRA HORIZONTAL "JORNADA DE DECISÃO"
+      // Lógica de cálculo estrita e sem drift
+      const wrapper = document.getElementById('journey-scroll-wrapper');
+      const stage = document.getElementById('journey-stage');
+      const track = document.getElementById('journey-track');
+      const journeyProgress = document.getElementById('journey-progress-bar');
+
+      if (wrapper && stage && track) {
+        const slides = track.querySelectorAll('.journey-slide');
+        const numSlides = slides.length || 3;
+        const stageWidth = stage.clientWidth;
+        
+        const rect = wrapper.getBoundingClientRect();
+        const wrapperTop = currentScrollY + rect.top;
+        const travel = wrapper.offsetHeight - window.innerHeight;
+        const progress = Math.min(Math.max((currentScrollY - wrapperTop) / (travel || 1), 0), 1);
+        const maxTranslate = (numSlides - 1) * stageWidth;
+        const translate = progress * maxTranslate;
+
+        track.style.transform = `translate3d(${-translate}px, 0, 0)`;
+        if (journeyProgress) journeyProgress.style.width = `${progress * 100}%`;
+
+        // Indicadores 01, 02, 03: progress < 0.25 -> 0, 0.25 a 0.75 -> 1, > 0.75 -> 2
+        let activeIdx = 0;
+        if (progress > 0.75) {
+          activeIdx = 2;
+        } else if (progress >= 0.25) {
+          activeIdx = 1;
+        } else {
+          activeIdx = 0;
+        }
+        updateJourneyNavButtons(activeIdx);
+      }
+
+      // 2. CENA STICKY DE DIFERENCIAIS
+      const difSec = document.getElementById('diferenciais');
+      if (difSec) {
+        const rect = difSec.getBoundingClientRect();
+        const sectionHeight = difSec.offsetHeight - window.innerHeight;
+        const scrollInside = -rect.top;
+        const normalized = sectionHeight > 0 ? Math.min(1, Math.max(0, scrollInside / sectionHeight)) : 0;
+
+        if (normalized >= 0 && normalized <= 1) {
+          if (normalized < 0.35 && currentBenefitState !== 1) {
+            setBenefitState(1);
+          } else if (normalized >= 0.35 && normalized < 0.70 && currentBenefitState !== 2) {
+            setBenefitState(2);
+          } else if (normalized >= 0.70 && currentBenefitState !== 3) {
+            setBenefitState(3);
+          }
+        }
+      }
+
+      // 3. FLUXO CONECTOR COMO FUNCIONA
+      const howSec = document.getElementById('como-funciona');
+      const flowLine = document.getElementById('flow-progress-line');
+      if (howSec && flowLine) {
+        const rect = howSec.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.75) {
+          flowLine.style.width = '100%';
+        } else {
+          flowLine.style.width = '30%';
+        }
+      }
+    }
+
+    // Vincula o listener otimizado com requestAnimationFrame
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          onScrollUpdate();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+
+    // Listener de resize e orientationchange para recalcular dimensões da esteira
+    window.addEventListener('resize', () => {
+      adjustJourneyLayout();
+      onScrollUpdate();
+    });
+    window.addEventListener('orientationchange', () => {
+      setTimeout(() => {
+        adjustJourneyLayout();
+        onScrollUpdate();
+      }, 100);
+    });
+
+    // Suporte a navegação por teclado (setas esquerda/direita) quando focado na esteira
+    window.addEventListener('keydown', (e) => {
+      const journeyWrapper = document.getElementById('journey-scroll-wrapper');
+      if (!journeyWrapper) return;
+      const rect = journeyWrapper.getBoundingClientRect();
+      const inView = rect.top <= window.innerHeight && rect.bottom >= 0;
+      if (inView) {
+        if (e.key === 'ArrowRight') {
+          const totalDistance = journeyWrapper.offsetHeight - window.innerHeight;
+          const progress = Math.min(1, Math.max(0, -rect.top / totalDistance));
+          if (progress < 0.25) scrollJourneyToStep(1);
+          else if (progress < 0.75) scrollJourneyToStep(2);
+        } else if (e.key === 'ArrowLeft') {
+          const totalDistance = journeyWrapper.offsetHeight - window.innerHeight;
+          const progress = Math.min(1, Math.max(0, -rect.top / totalDistance));
+          if (progress > 0.75) scrollJourneyToStep(1);
+          else if (progress > 0.25) scrollJourneyToStep(0);
+        }
+      }
+    });
+
+    // Execução segura e imediata nos eventos de inicialização
+    window.addEventListener('DOMContentLoaded', () => {
+      document.documentElement.style.setProperty('overflow-x','clip','important');
+      document.documentElement.style.setProperty('overflow-y','visible','important');
+      document.body.style.setProperty('overflow-x','clip','important');
+      document.body.style.setProperty('overflow-y','visible','important');
+      document.getElementById('landing-view').style.setProperty('overflow','visible','important');
+      document.getElementById('certeza').style.setProperty('overflow','visible','important');
+      document.querySelector('.journey-track').style.setProperty('align-self','flex-start','important');
+      document.querySelector('.journey-track').style.setProperty('margin-left','0','important');
+
+      if (window.location.hash === '#painel') {
+        openDashboard();
+      }
+      adjustJourneyLayout();
+      onScrollUpdate();
+      setBenefitState(1);
+    });
+
+    window.addEventListener('load', () => {
+      adjustJourneyLayout();
+      onScrollUpdate();
+    });
+  </script>
+</body></html>
