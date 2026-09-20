@@ -1,4 +1,4 @@
-# Radar de Retenção
+# Retain
 
 MVP em Streamlit para demonstrar uma fila antecipada e acionável de retenção com pesos explicáveis e forecasting.
 
